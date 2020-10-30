@@ -5,46 +5,46 @@
 package main
 
 import (
-	"fmt"
-	"log"
+    "fmt"
+    "log"
 
-	"github.com/erlanp/snow"
+    "github.com/erlanp/snow"
 
-	"github.com/buaazp/fasthttprouter"
-	"github.com/valyala/fasthttp"
+    "github.com/buaazp/fasthttprouter"
+    "github.com/valyala/fasthttp"
 )
 
 
 
 func Index(ctx *fasthttp.RequestCtx) {
-	seq := snow.NewSeq(filter2(ctx.FormValue("a")));
-	
-	fmt.Fprint(ctx, fmt.Sprintf("%d", (*seq).Incr()));
+    seq := snow.NewSeq(filter2(ctx.FormValue("a")));
+    
+    fmt.Fprint(ctx, fmt.Sprintf("%d", (*seq).Incr()));
 }
 
 func Index2(ctx *fasthttp.RequestCtx) {
-	snow := snow.NewSnow(filter2(ctx.FormValue("a")));
-	fmt.Fprint(ctx, fmt.Sprintf("%d", (*snow).Gen()));
+    snow := snow.NewSnow(filter2(ctx.FormValue("a")));
+    fmt.Fprint(ctx, fmt.Sprintf("%d", (*snow).Gen()));
 }
 
 
 func main() {
-	router := fasthttprouter.New()
+    router := fasthttprouter.New()
 
-	router.GET("/", Index);
-	router.GET("/index2", Index2)
+    router.GET("/", Index);
+    router.GET("/index2", Index2)
 
-	log.Fatal(fasthttp.ListenAndServe("127.0.0.1:8486", router.Handler))
+    log.Fatal(fasthttp.ListenAndServe("127.0.0.1:8486", router.Handler))
 }
 
 func filter2(b []byte) string {
-	j := len(b);
-	for i:=0; i<j; i++ {
-		if (b[i] < 48 || b[i] > 57) {
-			return "";
-		}
-	}
-	return string(b);
+    j := len(b);
+    for i:=0; i<j; i++ {
+        if (b[i] < 48 || b[i] > 57) {
+            return "";
+        }
+    }
+    return string(b);
 }
 
 ```
