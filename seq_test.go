@@ -1,23 +1,16 @@
 package snow
 
 import (
-    "testing"
-    "fmt"
-    "strconv"
-    // "io"
-    // "math/rand"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestWare(t *testing.T) {
-    var m map[string]Seq = map[string]Seq{};
-    co := Seq{name:"test1.txt"};
-    co.Init();
-    m["test1.txt"] = co;
-    co2 := m["test1.txt"];
-    
-    fmt.Println(co2.Incr());
-    i, _ := strconv.ParseInt("../GH45aA", 10, 64)
-    j, _ := strconv.ParseInt("123", 10, 64)
-    fmt.Println(fmt.Sprintf("%d", i + j));
-}    
-
+func TestSeq(t *testing.T) {
+	seq := NewSeq("seq")
+	var map2 = map[uint64]bool{}
+	for i := 0; i < 10000; i++ {
+		map2[seq.Incr()] = true
+	}
+	assert.Equal(t, len(map2), 10000, "they should be equal")
+}
