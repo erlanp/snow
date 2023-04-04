@@ -1,5 +1,7 @@
 # snow
 生成分布式id 这是一个练手项目, 如用于生产, 参见postgre的协议。
+具体例子详见
+https://github.com/erlanp/snowflake-example
 ```go
 package main
 
